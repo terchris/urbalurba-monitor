@@ -1,0 +1,9 @@
+{
+    "extends": "./tsconfig.json",
+    "compilerOptions": {
+      "outDir": "public",
+      "sourceMap": true
+    },
+    "include": ["src/frontend/**/*.ts", "src/frontend/index.html"]
+  }
+  
