@@ -1,0 +1,9 @@
+# .dockerignore
+
+node_modules
+dist
+public
+.dockerignore
+.git
+.gitignore
+.vscode
