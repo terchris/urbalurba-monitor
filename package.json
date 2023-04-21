@@ -57,7 +57,14 @@
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage",
     "start-worker": "node dist/worker/worker.js",
-    "docker:build": "docker build -t urbalurba-monitor -f docker/Dockerfile .",
-    "docker:start": "docker run -p 3001:3000 --env-file docker/env.list --name urbalurba-monitor urbalurba-monitor"  
+    "docker:build:dev": "docker build -t urbalurba-monitor -f docker/Dockerfile.dev .",
+    "docker:build:prod": "docker build -t urbalurba-monitor -f docker/Dockerfile.prod .", 
+    "docker:start": "docker run -p 3001:3000 --name urbalurba-monitor-instance --env-file docker/env.list urbalurba-monitor",
+    "docker:info1": "docker image inspect urbalurba-monitor | jq '.[0] | {Id: .Id, RepoTags: .RepoTags, SizeMB: (.Size / 1048576)}'",
+    "docker:info": "docker image inspect urbalurba-monitor --format '{{.Id}} {{.RepoTags}} {{(index .Size 0) | printf \"%.2f MB\"}}'",
+    "docker:stop": "docker stop urbalurba-monitor-instance",
+    "docker:remove": "docker rm urbalurba-monitor-instance",
+    "docker:cleanup": "yarn docker:stop && yarn docker:remove"    
+
   }
 }

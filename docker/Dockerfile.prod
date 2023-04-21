@@ -1,0 +1,25 @@
+# Use the smaller base image
+FROM node:lts-alpine AS build
+
+WORKDIR /usr/src/app
+
+COPY package*.json ./
+RUN yarn install --production
+
+COPY . .
+RUN yarn build:backend
+
+# Multi-stage build
+FROM node:lts-alpine
+
+WORKDIR /usr/src/app
+
+COPY --from=build /usr/src/app/node_modules ./node_modules
+COPY --from=build /usr/src/app/dist ./dist
+COPY --from=build /usr/src/app/public ./public
+
+ENV NODE_ENV=production
+
+EXPOSE 3000
+
+CMD ["yarn", "serve"]
