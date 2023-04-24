@@ -1,3 +1,7 @@
+in node using typescript and yarn. I have a project usng the package bullmq with express (se full package.json below).
+I need a function named listQueues() that returns a list of all queues in json format.  listQueues should be places in the file src/backend/listQueues.ts and exported from there. 
+The function should be called from the file src/backend/app.ts. and the path to the function should be /api/listQueues.
+
 {
   "name": "urbalurba-monitor",
   "version": "0.1.0",

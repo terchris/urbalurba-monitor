@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>City List</title>
+  <title>Queue List</title>
   <style>
     table {
       width: 100%;
@@ -28,16 +28,22 @@
   </style>
 </head>
 <body>
-  <table id="cityTable">
+  <h1>Urbalurba monitor</h1>
+  <p>uses BullMQ to manage queues and Bull Dashboard to display the queues</p>
+  <p>To display the queues <a href="/admin/queues">Bull-board</a> </p>
+  <hr>
+  <h2>Test functionality</h2>
+  <p>The table below query the url <a href="/listQueues">/listQueues</a> and uses script.js to display the json as a table</p>
+  <table id="queueTable">
     <thead>
       <tr>
-        <th>City</th>
+        <th>List of queues</th>
       </tr>
     </thead>
     <tbody>
-      <tbody id="cities-table-body"></tbody>
+      <tbody id="queues-table-body"></tbody>
     </tbody>
   </table>
-  <script src="/cities.js"></script>
+  <script src="/script.js"></script>
 </body>
 </html>

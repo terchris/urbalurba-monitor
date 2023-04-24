@@ -1,23 +1,14 @@
-// src/worker/queue.ts
+// src/worker/queues.ts
 import { Queue, ConnectionOptions } from 'bullmq';
+import { getQueueNames } from './getQueueNames';
 
-//import dotenv from 'dotenv';
 import * as dotenv from 'dotenv';
 
 dotenv.config();
 
-
 const REDIS_PORT = parseInt(process.env.REDIS_PORT || '6379');
 const REDIS_HOST = process.env.REDIS_HOST || 'localhost';
 const REDIS_PASSWORD = process.env.REDIS_PASSWORD || '';
-const REDIS_QUEUE_ARRAY = process.env.REDIS_QUEUE_ARRAY || '["my-queue"]';
-
-
-console.log('REDIS_PORT', REDIS_PORT);
-console.log('REDIS_HOST', REDIS_HOST);
-console.log('REDIS_PASSWORD', REDIS_PASSWORD);
-console.log('REDIS_QUEUE_ARRAY', REDIS_QUEUE_ARRAY);
-
 
 // Configure your Redis connection options
 export const connectionOptions: ConnectionOptions = {
@@ -26,13 +17,21 @@ export const connectionOptions: ConnectionOptions = {
   password: REDIS_PASSWORD,
 };
 
+console.log('REDIS_PORT', REDIS_PORT);
+console.log('REDIS_HOST', REDIS_HOST);
+console.log('REDIS_PASSWORD', REDIS_PASSWORD);
 
+async function initializeQueues(): Promise<Queue[]> {
+  const queueArray = await getQueueNames();
 
-// loop through the array of queues and create a new queue for each one
-export const queues = JSON.parse(REDIS_QUEUE_ARRAY).map((queueName: string) => {
-  return new Queue(queueName, {
-    connection: connectionOptions,
+  // loop through the array of queues and create a new queue for each one
+  return queueArray.map((queueName: string) => {
+    return new Queue(queueName, {
+      connection: connectionOptions,
+    });
   });
-});
+}
+
+export const queues = initializeQueues();
 
 

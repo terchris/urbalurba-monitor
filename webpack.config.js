@@ -5,10 +5,10 @@ const path = require('path');
 module.exports = {
   mode: 'development',
   devtool: 'source-map', 
-  entry: './src/frontend/scriptcities.ts',
+  entry: './src/frontend/scriptfrontend.ts',
   output: {
     path: path.resolve(__dirname, 'public'),
-    filename: 'cities.js', // Update this line to change the output location
+    filename: 'script.js', // Update this line to change the output location
   },
   plugins: [
     new CopyWebpackPlugin({
