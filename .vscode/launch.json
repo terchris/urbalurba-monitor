@@ -1,6 +1,6 @@
 {
   "version": "0.2.0",
-  "configurations": [
+  "configurations": [    
     {
       "name": "Debug Frontend",
       "type": "chrome",
@@ -13,13 +13,22 @@
       }
     },
     {
-      "name": "Debug Backend",
+      "name": "Debug Backend attach",
       "type": "node",
       "request": "attach",
       "skipFiles": [
         "<node_internals>/**"
       ],
       "port": 9293
-    }
+    },
+    {
+      "name": "Debug Backend launch",
+      "program": "${workspaceFolder}/dist/index.js",
+      "request": "launch",
+      "skipFiles": [
+        "<node_internals>/**"
+      ],
+      "type": "node"
+    },    
   ]
 }

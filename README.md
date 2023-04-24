@@ -7,6 +7,7 @@ Making it simple for you to test how BullMQ and Bull Dashboard works.
 
 Why I made it: I wanted to test BullMQ and Bull Dashboard and could not find any ready to use docker image that enabled me to play around with it.
 
+
 ## functionality
 
 * Sets up a webserver with express that run Bull Dashboard on port 3000
@@ -22,9 +23,56 @@ Why I made it: I wanted to test BullMQ and Bull Dashboard and could not find any
 
 TODO: write how to clone and just run the thing
 
+### displaying the dashboard
+
+go to http://localhost:3000
+
+Se below how to define queues. 
+
+
+### adding jobs to the test queue
+
+In a terminal run the command (server must be running)
+
+```bash
+yarn queue:add
+```
+It will add a job to the queue "urbalurba-test" with test data
+
+In the dashboard you should see the job added to the queue.
+
+### processing the jobs
+
+To process the jobs in the queue run the command
+
+```bash
+yarn queue:worker
+```
+
+It will print the following on the console
+
+```bash
+Processing job with ID: 8 and data: { message: 'hello world' }
+Processed text: undefined
+Job with ID 8 completed!
+```
+
 ## development starting point
 
 It sets up a dev environment with webpack and typescript. It uses jest for testing.
+
+
+## debugging using vscode
+
+### debugging the backend
+
+After building the backend. You start the server with the command
+
+```bash
+yarn servedebug
+```
+
+This starts up debugging on port 9293. In the debugger select the configuration "Debug backend"
 
 ## Testing using jest
 
@@ -69,10 +117,13 @@ REDIS_PASSWORD=yourpassword
 URBALURBA_MONITOR_PORT=3000
 ```
 
-## queue names
+## Define queues
 
 In the simplest form these are set in the file src/worker/getQueueNames.ts
 You can extend this to read from a database or other source.
+
+There is a queue added to the list of defined queies that is used for testing.
+const URBALURBA_TEST_QUEUE = process.env.URBALURBA_TEST_QUEUE || 'urbalurba-test';
 
 ```ts
 export const TMP_URBALURBA_QUEUE_ARRAY = [
@@ -80,3 +131,9 @@ export const TMP_URBALURBA_QUEUE_ARRAY = [
 "urbalurba:jalla",
 ];
 ```
+
+
+## Useful documentation and links
+
+https://www.digitalocean.com/community/tutorials/how-to-handle-asynchronous-tasks-with-node-js-and-bullmq
+https://roluquec.medium.com/job-queuing-101-start-using-bull-in-your-node-js-project-part-i-2be3ef36a42d

@@ -6,13 +6,18 @@ import { createBullBoard } from '@bull-board/api';
 import { BullMQAdapter } from '@bull-board/api/bullMQAdapter';
 import { ExpressAdapter } from '@bull-board/express';
 
-import { queues } from '../worker/queues';
+import { queues } from '../worker/initializeQueues';
 import { listQueues } from './listQueues';
+import { enqueueJob } from '../worker/testQueueEnqueueJob';
+
+
+export let globalBullQueues: any = [];
 
 const serverAdapter = new ExpressAdapter();
 serverAdapter.setBasePath('/admin/queues');
 
 const app = express();
+app.use(express.json());
 
 // path to the frontend html file
 const publicPath = path.join(__dirname, '..', '..', 'public');
@@ -32,13 +37,16 @@ app.get('/listQueues', async (req: Request, res: Response) => {
   }
 });
 
+app.post('/enqueue-job', enqueueJob);
+
+
 async function initializeApp() {
   try {
-    const resolvedQueues = await queues;
+    globalBullQueues = await queues;
 
     const { addQueue, removeQueue, setQueues, replaceQueues } = createBullBoard({
       // loop through the array of queues and create a new queue for each one
-      queues: resolvedQueues.map((queue: any) => new BullMQAdapter(queue)),
+      queues: globalBullQueues.map((queue: any) => new BullMQAdapter(queue)),
       serverAdapter: serverAdapter,
     });
 
@@ -48,6 +56,8 @@ async function initializeApp() {
     console.error('Error initializing the app:', error);
   }
 }
+
+
 
 initializeApp();
 
