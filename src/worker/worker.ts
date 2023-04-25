@@ -1,4 +1,4 @@
-// testQueueWorker.ts
+// worker.ts
 import { Queue, Worker } from 'bullmq';
 import * as dotenv from 'dotenv';
 
@@ -10,7 +10,7 @@ import { connectionOptions } from './initializeQueues';
 
 const queueName = URBALURBA_TEST_QUEUE;
 
-console.log("queueName", queueName);
+console.log("worker for queueName:", queueName);
 const queue = new Queue(queueName, { connection: connectionOptions });
 
 const worker = new Worker(queueName, async (job) => {

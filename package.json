@@ -56,7 +56,7 @@
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage",
     "queue:add": "curl -X POST http://localhost:3000/enqueue-job -H \"Content-Type: application/json\" -d '{\"name\": \"my-job-terminal\", \"data\": {\"message\": \"hello world\"}}'",
-    "queue:worker": "node dist/worker/testQueueWorker.js",
+    "queue:worker": "node dist/worker/worker.js",
     "docker:build:dev": "docker build -t urbalurba-monitor -f docker/Dockerfile.dev .",
     "docker:build:prod": "docker build -t urbalurba-monitor -f docker/Dockerfile.prod .",
     "docker:start": "docker run -p 3001:3000 --name urbalurba-monitor-instance --env-file docker/env.list urbalurba-monitor",
