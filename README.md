@@ -19,6 +19,10 @@ Why I made it: I wanted to test BullMQ and Bull Dashboard and could not find any
 * typescript configuration for the backend, frontend and worker
 * several build scripts for creating and testing it running in docker
 
+## commands / scripts 
+
+see the file package.json for all the commands in the scripts section
+
 ## just testing it out
 
 TODO: write how to clone and just run the thing
