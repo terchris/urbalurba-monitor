@@ -23,6 +23,23 @@ Why I made it: I wanted to test BullMQ and Bull Dashboard and could not find any
 
 see the file package.json for all the commands in the scripts section
 
+### for testing and building
+
+yarn build - builds the backend, frontend and worker
+yarn serve - starts the backend, frontend 
+yarn queue:add - adds a job to the queue see http://localhost:3000/admin/queues
+yarn queue:worker - starts the worker that process the jobs in the queue
+
+### for development
+
+yarn test - runs the tests
+
+### to run in docker
+
+todo
+
+
+
 ## just testing it out
 
 TODO: write how to clone and just run the thing
